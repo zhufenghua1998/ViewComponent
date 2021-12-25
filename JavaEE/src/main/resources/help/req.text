@@ -1,0 +1,68 @@
+package http;
+
+
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.util.*;
+
+/**
+ * 增强的Request工具
+ *
+1.获取请求参数相关
+2.获取http信息
+3.域相关
+4.其他操作
+ *
+ */
+public class ViewReq {
+
+    // 1、获取请求参数相关
+    // 1.1、String request.getParameter(String name); //获取一个参数的一个值
+    // 1.2、String[] request.getParameterValues(String name);//某个参数的所有值
+    // 1.3、Enum[] request.getParameterNames();获取所有参数名称
+    // 1.4、Map<String,String []> request.getParameterMap();//获取所有参数名和值
+
+
+    // 2 获取http信息
+    // 请求行
+    // 2.1 getMethod();获取请求方式
+    // 2.2 getRequestURI();获取uri，(除协议和域名剩下的部分)
+    // 2.3 getProtocal();获取请求协议以及版本
+    // 2.4 getRequestURL();获取url，(资源的绝对路径)
+    // 2.5 getContextPath();获取项目虚拟目录
+    // 2.6 getServletPath();获取servlet路径（URI去掉虚拟目录的部分）
+    // 2.7 getPathInfo();此路径为servlet对应的显示目录
+    // 2.8 getScheme();检测协议是http或https
+    // 2.9 getProtocal();获取协议名称（协议/版本）
+    // 2.10 getLocalAddr(); //获取服务器IP
+    // 2.11 getLocalName()：返回服务器端的主机名
+    // 2.12 getLocalPort()：返回服务器端的FTP端口号。
+    // 2.13 getRemoteAddr();获取客户主机的ip地址
+    // 2.14 getRemoteHost()：返回客户端的主机名。
+    // 2.15 getRemotePort()：返回客户端的FTP端口号。
+    // 2.16 getQueryString();获取请求参数字符串
+
+    // 获取请求头
+
+    //2.17 getHeader(String name);获取某个请求头的值
+    //2.18 getHeaderNames();获取所有的请求头名称
+
+    // 获取请求体
+
+    //2.19、getContentLength()：返回请求正文的长度。
+    //2.20、getContentType()：获得请求正文的MIME类型。
+    //2.21、getInputStream()：返回用于读取请求正文的输入流。
+    //2.22、getReader()：返回用户读取字符串形式的请求正文的BufferedReader对象。
+
+    // 3.域相关
+    // 3.1、setAttribute(String name,Object obj):存储数据
+    // 3.2、getAttribute(String name):通过键名获取
+    // 3.3、removeAttribute(String name):通过键名移除数据
+
+    // 3.4、getSession();获取Session域
+    // 3.5、getServletContext();获取容器上下文
+
+    // 4.其他操作
+    // 4.1 getRequestDispatcher(String path).forward(request,response) 请求转发
+}

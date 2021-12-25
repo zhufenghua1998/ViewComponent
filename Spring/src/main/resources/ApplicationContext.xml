@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--    基础模式-->
+    <bean id="user" class="entity.User" />
+
+<!--    别名（不触发初始化）-->
+    <alias name="user" alias="toName"/>
+
+<!--    原型模式-->
+    <bean id="user_pro" class="entity.User" scope="prototype"/>
+
+    <!--    静态工厂模式（不触发自动初始化）-->
+
+    <bean id="UserByStaticFac" class="entity.User" factory-method="createInstance"/>
+
+    <!--    实例工厂模式-->
+    <bean id="userFac" class="entity.UserFactory"/>
+    <bean id="instanceFactory" factory-bean="userFac" factory-method="getUser"/>
+
+    <!--    惰性初始化-->
+    <bean id="user_ly" class="entity.User_Ly" lazy-init="true"/>
+
+<!--    构造方法-->
+    <bean id="cons_user" class="entity.User" >
+        <constructor-arg name="id" value="9"/>
+        <constructor-arg name="name" value="张"/>
+        <constructor-arg name="pwd" value="123"/>
+    </bean>
+
+    <bean id="cons2_user" class="entity.User">
+        <constructor-arg type="int" value="10"/>
+        <constructor-arg index="1" value="李" />
+        <constructor-arg index="2" value="33333333" />
+    </bean>
+<!--    生命周期-->
+    <bean id="live" class="entity.User_LI" init-method="init" destroy-method="destroy" />
+<!--    Set注入-->
+    <bean id="set_user1" class="entity.User">
+        <property name="id" value="222" />
+        <property name="name" value="李" />
+        <property name="pwd" value="12321321" />
+    </bean>
+
+    <bean id="set_user2" class="entity.User_Complex">
+        <property name="list">
+            <list>
+                <value>张三</value>
+                <value>李四</value>
+                <value>王五</value>
+            </list>
+        </property>
+        <property name="set">
+            <set>
+                <value>aa</value>
+                <value>bb</value>
+                <value>cc</value>
+            </set>
+        </property>
+        <property name="map">
+            <map>
+                <entry key="java" value="11"/>
+                <entry key="oracle" value="22"/>
+                <entry key="mysql" value="333"/>
+            </map>
+        </property>
+    </bean>
+</beans>

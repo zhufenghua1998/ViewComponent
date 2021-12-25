@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--加载目标对象-->
+    <bean id="target2" class="entity.Target"></bean>
+
+    <!--加载环绕通知-->
+    <bean id="testAround" class="entity.TargetAround"></bean>
+
+    <!--配置切面-->
+    <aop:config>
+        <aop:pointcut id="targetCut" expression="execution(* entity.Target.save(*))"/>
+
+
+        <!--配置切面程序-->
+        <aop:aspect ref="testAround">
+            <aop:around method="doAround" pointcut-ref="targetCut"></aop:around>
+        </aop:aspect>
+    </aop:config>
+</beans>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+<!--    配置目标程序  -->
+    <bean id="target" class="entity.Target"/>
+<!--    配置前置通知  -->
+    <bean id="targetBefore" class="entity.TargetBefore"/>
+<!--    配置后置通知  -->
+    <bean id="targetAfter" class="entity.TargetAfter"/>
+<!--    配置异常通知  -->
+    <bean id="targetException" class="entity.TargetException"/>
+<!--    配置最终通知  -->
+    <bean id="targetFinal" class="entity.TargetFinal"/>
+
+    <aop:config>
+        <!--expression匹配切入点
+             execution   按照函数进行匹配  找的是方法
+             within      按照类进行匹配    找的是文件
+             execution是最常用的匹配方式
+             第一个*表示返回值可以是任意类型
+             路径和方法名
+             第二个*表示切入点方法的参数可以是任意类型
+         -->
+        <!--execution基于方法  函数进行匹配-->
+        <aop:pointcut id="targetCut" expression="execution(* entity.Target.save(*))"/>
+        <!--
+            com..表示com下边的所有包以及子包
+            第二个*所有类
+            第三个*是类中的所有方法
+            第四个*是方法的参数可以是任意类型
+        -->
+        <!--<aop:pointcut id="targetCut" expression="execution(* com..*.*(*))"/>-->
+
+        <!--within  基于类进行匹配-->
+        <!--匹配到类中的所有方法-->
+        <!--<aop:pointcut id="targetCut" expression="within(com.xxx.aop.xml.bean.Target)"/>-->
+        <!--匹配到包下的所有类-->
+        <!--<aop:pointcut id="targetCut" expression="within(com.xxx.aop.xml.bean.*)"/>-->
+        <!--匹配com下所有包以及子包中的所有类-->
+        <!--<aop:pointcut id="targetCut" expression="within(com..*)"/>-->
+        <!--配置切面程序  前置通知-->
+        <aop:aspect ref="targetBefore">
+            <!--method执行的哪个切面方法
+                pointcut-ref指定前置通知作用在哪些方法上-->
+            <aop:before method="doBefore" pointcut-ref="targetCut"></aop:before>
+        </aop:aspect>
+
+        <!--配置切面程序  后置通知-->
+        <aop:aspect ref="targetAfter">
+            <aop:after-returning method="doAfter" pointcut-ref="targetCut" returning="obj"></aop:after-returning>
+        </aop:aspect>
+
+        <!--配置异常通知-->
+        <aop:aspect ref="targetException">
+            <aop:after-throwing method="doException" pointcut-ref="targetCut" throwing="e"></aop:after-throwing>
+        </aop:aspect>
+
+        <!--配置最终通知
+            无论目标程序是否有异常，最终通知肯定会执行
+            如果目标程序没有异常，  最终通知和后置通知的执行顺序和标签顺序有关
+            最终通知和后置通知  谁在上谁后执行
+        -->
+        <aop:aspect ref="targetFinal">
+            <aop:after method="doFinal" pointcut-ref="targetCut"></aop:after>
+        </aop:aspect>
+    </aop:config>
+</beans>

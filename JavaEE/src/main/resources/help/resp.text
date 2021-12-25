@@ -1,0 +1,43 @@
+package http;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+/**
+ * 封装Response工具
+ *
+1、响应http相关
+    1.1、响应行
+    1.2、响应头
+    1.3、响应空行
+    1.4、响应体
+2、设置Cookie
+3、设置编码与Mime
+4.其他操作
+ *
+ */
+public class ViewResp{
+
+    // 1.1. 响应行
+
+    // 1.1.1 setStatus(int sc)
+
+    // 1.2. 设置相应头
+    // 1.2.1、setHeader(String name, String value)
+
+    // 1.4 设置响应体
+    // 1.4.1 getWriter()
+    // 1.4.2 getOutputStream()
+
+
+
+    // 2. 设置Cookie
+    // 2.1 addCookie(Cookie cookie)
+
+    // 3.设置编码与Mime
+
+
+
+    // 4. 其他操作
+    // 4.1 sendRedirect(String path);
+}
